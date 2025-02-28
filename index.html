@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Have Been Hacked!</title>
+    <style>
+        body {
+            background-color: black;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 2.5em;
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes blink {
+            from { opacity: 1; }
+            to { opacity: 0.5; }
+        }
+        .console {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #00ff00;
+            padding: 15px;
+            display: inline-block;
+            text-align: left;
+            font-size: 1.2em;
+        }
+        .warning {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: red;
+            animation: warningBlink 1.5s infinite alternate;
+        }
+        @keyframes warningBlink {
+            from { color: red; }
+            to { color: yellow; }
+        }
+    </style>
+    <script>
+        function showDetails() {
+            document.getElementById("browser").innerText = navigator.userAgent;
+
+            // Fetch IP Address
+            fetch("https://ifconfig.me/all.json")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("ip").innerText = "IP Address: " + data.ip_addr;
+                })
+                .catch(error => {
+                    document.getElementById("ip").innerText = "Unable to fetch IP.";
+                    console.error("Error fetching IP details:", error);
+                });
+
+            // Attempt to get user location
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        document.getElementById("location").innerText = 
+                            `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`;
+                    }, 
+                    error => {
+                        document.getElementById("location").innerText = 
+                            "Location access denied or unavailable.";
+                        console.warn("Geolocation error:", error);
+                    }
+                );
+            } else {
+                document.getElementById("location").innerText = "Geolocation not supported.";
+            }
+        }
+    </script>
+</head>
+<body onload="showDetails()">
+    <h1>⚠ You Have Been Hacked! ⚠</h1>
+    <div class="console">
+        <p><strong>Your IP Address:</strong> <span id="ip">Fetching...</span></p>
+        <p><strong>Your Device Info:</strong> <span id="browser">Fetching...</span></p>
+        <p><strong>Location:</strong> <span id="location">Attempting to access...</span></p>
+    </div>
+    <p class="warning">Be careful! You just scanned an unknown QR Code!</p>
+    <p style="color: white;">This is a demo to show how hackers can trick you.</p>
+</body>
+</html>
