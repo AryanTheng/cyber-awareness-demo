@@ -19,10 +19,6 @@ This GitHub Page provides:
 ```
 📁 cybersecurity-awareness/
  ├── 📜 index.html        # Main webpage
- ├── 📜 style.css         # Styling for the page
- ├── 📜 script.js         # Interactive scripts
- ├── 📜 images/           # Visual assets
- ├── 📜 docs/             # Guides & documentation
  └── 📜 README.md         # This file
 ```
 
