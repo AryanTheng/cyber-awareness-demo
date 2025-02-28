@@ -27,7 +27,6 @@
             display: inline-block;
             text-align: left;
             font-size: 1.2em;
-            max-width: 90%;
         }
         .warning {
             margin-top: 20px;
@@ -39,24 +38,12 @@
             from { color: red; }
             to { color: yellow; }
         }
-        .learn-more {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: red;
-            color: white;
-            border: none;
-            font-size: 1.2em;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .learn-more:hover {
-            background-color: darkred;
-        }
     </style>
     <script>
         function showDetails() {
             document.getElementById("browser").innerText = navigator.userAgent;
 
+            // Fetch IP Address
             fetch("https://ifconfig.me/all.json")
                 .then(response => response.json())
                 .then(data => {
@@ -67,6 +54,7 @@
                     console.error("Error fetching IP details:", error);
                 });
 
+            // Attempt to get user location
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     position => {
@@ -91,9 +79,10 @@
         <p><strong>Your IP Address:</strong> <span id="ip">Fetching...</span></p>
         <p><strong>Your Device Info:</strong> <span id="browser">Fetching...</span></p>
         <p><strong>Location:</strong> <span id="location">Attempting to access...</span></p>
+        <p class="warning">Be careful! You just scanned an unknown QR Code!</p>
+        <p style="color: white;">This is a demo to show how hackers can trick you.</p>
+        <p style="color: white;">This is a demo to show how hackers can trick you.</p>
+        <button class="learn-more" onclick="window.location.href='https://github.com/AryanTheng/cyber-awareness-demo'">Learn More</button>
     </div>
-    <p class="warning">Be careful! You just scanned an unknown QR Code!</p>
-    <p style="color: white;">This is a demo to show how hackers can trick you.</p>
-    <button class="learn-more" onclick="window.location.href='https://github.com/AryanTheng/cyber-awareness-demo'">Learn More</button>
 </body>
 </html>
